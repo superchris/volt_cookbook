@@ -1,0 +1,40 @@
+<:Title>
+Recipes
+
+<:Body>
+<div class="row">
+  <div class="col-md-4">
+    <h2>{{_recipes.size}} Recipes</h2>
+
+    <div class="search">
+      <div class="form-search search-only">
+        <i class="search-icon glyphicon glyphicon-search"></i>
+        <input type="text" class="form-control search-query" value="{{ _query }}">
+      </div>
+    </div>
+
+    <div class="list-group">
+      {{ if queried_recipes.size == 0 }}
+      {{ if _query.present? }}
+      <a class="list-group-item">No results</a>
+      {{ end }}
+      {{ end }}
+      {{ queried_recipes.each do |recipe| }}
+      <a class="list-group-item recipe {{ if recipe._id == model._id }}active{{ end }}" href="/recipes/{{ recipe._id }}">
+        {{ recipe.title }}
+        <button class="close" e-click="remove(recipe)">×</button>
+      </a>
+      {{ end }}
+    </div>
+
+    <button class="btn btn-primary" e-click="new">New Recipe</button>
+
+    <hr />
+
+
+  </div>
+
+  <div class="col-md-8">
+    <:edit model="{{ model }}" />
+  </div>
+</div>
